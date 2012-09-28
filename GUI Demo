@@ -1,0 +1,194 @@
+//Tanis Lopez
+//CS383 - Last Procedure
+//VMWare_GUI_demo2.pde
+
+//Bring in Library
+import controlP5.*;
+
+//Declaration of Control
+ControlP5 cp5;
+
+//This is the Right Collapsing Menu
+Accordion RightPanel;
+Accordion LeftPanel;
+Accordion BottomLeftPanel;
+Accordion BottomCenterPanel;
+Accordion BottomRightPanel;
+
+//Text for info field within Accordion
+Textarea myTextarea;
+
+void setup()
+{
+  
+  //screen dimension and draw type
+  size(screenWidth,screenHeight);
+  background(100);
+  smooth();
+  
+  //Draws GUI onto the canvas
+  gui();
+  
+}
+  
+void draw()
+{
+  //Centers the main canvas
+  if(frameCount == 1) frame.setLocation(0, 0);
+}
+
+void gui() 
+{
+  //New controller
+  cp5 = new ControlP5(this);
+  
+  //Standard BottomPanel Dimensions
+  int BottomPanelWidth = int(screenWidth * .33);
+  int BottomPanelHeight = int(screenHeight / 1.42);
+  
+  //Standard TopPanelHeight Dimensions
+  int TopPanelHeight = int(BottomPanelHeight);
+  int TopPanelWidth = int(screenWidth * .15);
+  
+  ///========Start Canvas======
+  cp5.addGroup("myGroup")
+     .setLabel("Network Visualizer")
+     .setPosition((TopPanelWidth + 1),(screenHeight * .0149))
+     .setWidth(int(screenWidth * 0.7))
+     .addCanvas(new VisualizerCanvas())
+     ;
+  //======END CANVAS=======
+  
+  
+  
+  //==========START ACCORDION RIGHT PANEL SETUP=========
+  
+  // group number 1
+  Group rp1 = cp5.addGroup("Key")
+                .setBackgroundColor(color(0, 64))
+                .setBackgroundHeight(TopPanelHeight / 3)
+                ;
+                
+                
+     
+  // group number 2, contains a radiobutton
+  Group rp2 = cp5.addGroup("Nodes")
+                .setBackgroundColor(color(0, 64))
+                .setBackgroundHeight(TopPanelHeight / 3)
+                ;
+  
+  cp5.addRadioButton("radio")
+     .setPosition(10,20)
+     .setItemWidth(20)
+     .setItemHeight(20)
+     .addItem("Basic", 0)
+     .addItem("Distributor", 1)
+     .addItem("Special", 2)
+     .setColorLabel(color(255))
+     .activate(0)
+     .moveTo(rp2)
+     ;
+
+  // group number 3, contains a text area
+  Group rp3 = cp5.addGroup("Info")
+                .setBackgroundColor(color(0, 64))
+                .setBackgroundHeight(TopPanelHeight / 3)
+                ;
+                
+  //Text Area Setup
+  myTextarea = cp5.addTextarea("txt")
+                  .setPosition(10,20)
+                  .setSize(TopPanelWidth,20)
+                  .setFont(createFont("arial",12))
+                  .setLineHeight(14)
+                  .setColor(color(255))
+                  .setColorBackground(color(0,100))
+                  .setColorForeground(color(0,100))
+                  .moveTo(rp3)
+                  ;
+  myTextarea.setText("This is an information field"
+                    );
+                
+  //============End Right Panel Setup===========
+  
+  
+  //============Left Panel Setup===========
+  Group lp1 = cp5.addGroup("Navigation")
+                .setBackgroundColor(color(0, 64))
+                .setBackgroundHeight(TopPanelHeight)
+                ;
+  //============End Left Panel Setup==========              
+  
+  //============BottomLeft Panel================
+  Group blp = cp5.addGroup("Data Type Information")
+                .setBackgroundColor(color(0, 64))
+                .setBackgroundHeight(BottomPanelHeight)
+                ;
+  //===========End BottomLeft Panel============
+  
+  
+  
+  //===========BottomCenter Panel=============
+  Group bcp = cp5.addGroup("Available Items")
+                .setBackgroundColor(color(0, 64))
+                .setBackgroundHeight(BottomPanelHeight)
+                ;
+  //===========End BottomCenter Panel========
+  
+  
+  
+  //============BottomRight panel==========
+  Group brp = cp5.addGroup("Functions")
+                .setBackgroundColor(color(0, 64))
+                .setBackgroundHeight(BottomPanelHeight)
+                ;
+  //===========End BottomRight Panel=======  
+  
+  
+ 
+  
+//=======Accordion Initializations========  
+  // Initialize Accordion RightPanel
+  // add g1, g2, and g3 to the accordion.
+  RightPanel = cp5.addAccordion("RightPanel")
+                 .setPosition(int(screenWidth * 0.85),(0))
+                 .setWidth(TopPanelWidth)
+                 .addItem(rp1)
+                 .addItem(rp2)
+                 .addItem(rp3)
+                 ;
+             
+  RightPanel.open(0,1,2);
+  RightPanel.setCollapseMode(Accordion.MULTI);
+  
+  LeftPanel = cp5.addAccordion("LeftPanel")
+                .setPosition(0,0)
+                .setWidth(int(screenWidth * .15))
+                .addItem(lp1)
+                ;   
+  LeftPanel.open(0);
+  
+  BottomLeftPanel = cp5.addAccordion("BottomLeftPanel")
+                .setPosition(0,BottomPanelHeight)
+                .setWidth(BottomPanelWidth)
+                .addItem(blp)
+                ;   
+  BottomLeftPanel.open(0);
+  
+  BottomCenterPanel = cp5.addAccordion("BottomCenterPanel")
+                .setPosition((BottomPanelWidth + 1),BottomPanelHeight)
+                .setWidth(BottomPanelWidth)
+                .addItem(bcp)
+                ;   
+  BottomCenterPanel.open(0);
+  
+  BottomRightPanel = cp5.addAccordion("BottomRightPanel")
+                .setPosition((BottomPanelWidth * 2 + 2),BottomPanelHeight)
+                .setWidth(int(BottomPanelWidth * 1.02))
+                .addItem(brp)
+                ;   
+  BottomRightPanel.open(0);
+  //=========END ACCORDION SETUP==========
+  
+  
+}// end gui
