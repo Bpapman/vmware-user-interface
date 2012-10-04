@@ -1,4 +1,4 @@
-#summary One-sentence summary of this page.
+#Group meeting, Risks, Solutions, and updates
 
 = Introduction =
 
@@ -48,4 +48,3 @@ Language is C#
 
 === Solutions ===
 * Prototyping with the Visualizer
-
