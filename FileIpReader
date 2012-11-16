@@ -1,0 +1,101 @@
+/* FileIpReader.java
+ * 
+ * Tanis Lopez
+ * Archana Shrestha
+ * 
+ * Contains the parser, and sets node class data
+ */
+
+package com.proj.vm;
+
+import java.io.*;
+
+public class FileIpReader
+{
+
+public void FileIpReader()
+{   
+	BufferedReader br = null;
+	 
+	  try {
+	    
+	   String sCurrentLine;
+	 
+           //Location of the File to be parsed
+	   br = new BufferedReader(new FileReader("C:\\Users\\Tanis\\Documents\\UI\\Fall2012\\VNV\\vm\\vm\\src\\com\\proj\\vm\\test.txt"));
+	 
+	   while ((sCurrentLine = br.readLine()) != null) 
+           {
+	                   
+               if( sCurrentLine.compareTo("<node>") == 0)
+                {
+                    
+                   /* <Node> tag Contains the following
+                    *   Name - string
+                    *   SwitchID - string
+                    *   Status - string
+                    */
+                   
+                    //Node Initialization
+                   Node newNode = new Node("temp","temp","temp");
+                   
+                   //Name Read
+                   sCurrentLine = br.readLine();
+                   String newName = sCurrentLine;
+                   newNode.setName(newName);                           
+                   
+                   //SwitchID Read
+                   sCurrentLine = br.readLine();
+                   String newSwitchID = sCurrentLine;
+                   newNode.setSwitchID(newSwitchID);
+                   
+                   //Status
+                   sCurrentLine = br.readLine();
+                   String newStatus = sCurrentLine;
+                   newNode.setStatus(newStatus);
+                   
+                   
+                   //Outputs the fields of the read node for checking purposes
+                   newNode.printNode(newNode);     
+                   System.out.format("End of %s%n", newNode.getName());
+                   
+              } //End <node> Tag
+                         
+               
+            if(sCurrentLine.compareTo("<edge>") == 0)
+             {
+               sCurrentLine = br.readLine();
+                              
+                String OrigNode;
+                String DestNode;
+                
+                String[] tokens;
+                
+                tokens = sCurrentLine.split(",");
+                OrigNode = tokens[0];
+                DestNode = tokens[1];
+                
+                System.out.format("%s is connected to %s%n",OrigNode,DestNode);
+                
+             }//end <edge> tag
+           }//end while
+	 
+	  } catch (IOException e) {
+	  } finally {
+	   try {
+	    if (br != null) {
+                   br.close();
+               }
+	   } catch (IOException ex) {
+	   }
+	  }	
+}
+
+public static void main(String[] args)
+{
+	FileIpReader finput= new FileIpReader();
+        finput.FileIpReader();
+        System.out.println("End of FileRead");
+}
+
+}
