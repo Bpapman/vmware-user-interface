@@ -1,0 +1,71 @@
+/* Node.java
+ * 
+ * Tanis Lopez
+ * Archana Shrestha
+ * 
+ * Contains main, as well as the methods used for the construction
+ * of node objects as well as the setting and returning of values
+ * within the class.
+ */
+
+package com.proj.vm;
+
+public class Node 
+{
+	
+	private String Name;
+	private String SwitchID;
+	private String Status;
+	
+        
+        //Constructor
+        public Node(String nodeName, String nodeSwitchID, String nodeStatus)
+        {
+            Name = nodeName;
+            SwitchID = nodeSwitchID;
+            Status = nodeStatus;
+            
+        }
+        
+        
+	public String getName() {
+		return Name;
+	}
+	
+	public void setName(String name) {
+		Name = name;
+	}
+	
+	public String getSwitchId() {
+		return SwitchID;
+	}
+	
+	public void setSwitchID(String switchid) {
+		SwitchID = switchid;
+	}
+	
+	public String getStatus() {
+		return Status;
+	}
+	
+	public void setStatus(String status) 
+	{
+		Status = status;
+	}       
+        
+        public void printNode(Node node)
+        {
+            
+            System.out.format("Node Name: %s%n", node.getName());
+            System.out.format("Switch: %s%n", node.getSwitchId());
+            System.out.format("Status: %s%n", node.getStatus());
+        }
+        
+} //end Node class
+	
+	
+	
+	
+	
+
+   
