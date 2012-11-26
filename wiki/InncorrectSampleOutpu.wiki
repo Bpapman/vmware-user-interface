@@ -1,0 +1,142 @@
+<<>>
+<node>
+proton.radicl.uidaho.edu
+<node>
+vSwitch0
+<node>
+vSwitch1
+<node>
+vSwitch2
+<node>
+vSwitch3
+<node>
+VM Network
+<node>
+VMkernel
+<node>
+Management Network
+<node>
+IDS
+<node>
+Boom5148 Network 1
+<node>
+Seth-Prot-625-1 Network 1
+<node>
+Seth-400-1 Network 1
+<node>
+Seth-400-4N1 Network 1
+<node>
+Seth-Rnd9-5 Network 1
+<node>
+Seth-Rnd10-100 Network 1
+<node>
+Seth-Rnd9-100 Network 1
+<node>
+Seth-Round8-100 Network 1
+<node>
+Seth-Round10-4 Network 1
+<node>
+Seth-Round10-2 Network 1
+<node>
+Seth-Round10-0 Network 1
+<node>
+Seth-Round10-1 Network 1
+<node>
+Seth-ProtonBT Network 1
+<node>
+Seth-ProtonNet2 Network 1
+<node>
+CCDC extend 1 Network 1
+<node>
+bots-outside Network 1
+<node>
+bots-monitor Network 1
+<node>
+bots-inside Network 1
+<node>
+ (1) Network 1
+<node>
+RED_IDS_1 Network 1
+<node>
+blue pill Network 1
+<node>
+DHCP Network
+<node>
+Templates
+<node>
+Internet Connection
+<node>
+proton DHCP server
+<node>
+proton Internet Router
+<node>
+Seth-XubuntuBase1  (1)
+<node>
+Windows Server 2008-Exchange
+<node>
+Seth-Proton4
+<node>
+Seth-XubuntuBase1  (1)
+<node>
+Seth-PowerfulXub
+<node>
+Cobia Firewall+JQ-2fNAT - Proton
+<node>
+Ubuntu 10.10 Desktop  (1)
+<node>
+Ubuntu 10.10 Desktop  (2)
+<node>
+IDS - Proton
+<node>
+Windows Server 2008 - Domain-DHCP  (1)
+<<>>
+<proton.radicl.uidaho.edu,vSwitch0>
+<proton.radicl.uidaho.edu,vSwitch1>
+<proton.radicl.uidaho.edu,vSwitch2>
+<proton.radicl.uidaho.edu,vSwitch3>
+<vSwitch0,Management Network>
+<vSwitch0,VM Network>
+<vSwitch0,VMkernel>
+<vSwitch1,IDS>
+<vSwitch2, (1) Network 1>
+<vSwitch2,Boom5148 Network 1>
+<vSwitch2,CCDC extend 1 Network 1>
+<vSwitch2,DHCP Network>
+<vSwitch2,RED_IDS_1 Network 1>
+<vSwitch2,Seth-400-1 Network 1>
+<vSwitch2,Seth-400-4N1 Network 1>
+<vSwitch2,Seth-Prot-625-1 Network 1>
+<vSwitch2,Seth-ProtonBT Network 1>
+<vSwitch2,Seth-ProtonNet2 Network 1>
+<vSwitch2,Seth-Rnd10-100 Network 1>
+<vSwitch2,Seth-Rnd9-100 Network 1>
+<vSwitch2,Seth-Rnd9-5 Network 1>
+<vSwitch2,Seth-Round10-0 Network 1>
+<vSwitch2,Seth-Round10-1 Network 1>
+<vSwitch2,Seth-Round10-2 Network 1>
+<vSwitch2,Seth-Round10-4 Network 1>
+<vSwitch2,Seth-Round8-100 Network 1>
+<vSwitch2,Templates>
+<vSwitch2,blue pill Network 1>
+<vSwitch2,bots-inside Network 1>
+<vSwitch2,bots-monitor Network 1>
+<vSwitch2,bots-outside Network 1>
+<vSwitch3,Internet Connection>
+<VM Network,proton DHCP server>
+<DHCP Network,proton DHCP server>
+<VM Network,proton Internet Router>
+<Internet Connection,proton Internet Router>
+<Seth-Round10-0 Network 1,Seth-XubuntuBase1  (1)>
+<Seth-Round10-0 Network 1,Seth-XubuntuBase1  (1)>
+<RED_IDS_1 Network 1,Windows Server 2008-Exchange>
+<RED_IDS_1 Network 1,Seth-Proton4>
+<Seth-Round10-0 Network 1,Seth-XubuntuBase1  (1)>
+<Seth-Round10-0 Network 1,Seth-XubuntuBase1  (1)>
+<Seth-Round10-0 Network 1,Seth-PowerfulXub>
+<Templates,Cobia Firewall+JQ-2fNAT - Proton>
+<Templates,Cobia Firewall+JQ-2fNAT - Proton>
+<Boom5148 Network 1,Ubuntu 10.10 Desktop  (1)>
+<Boom5148 Network 1,Ubuntu 10.10 Desktop  (2)>
+<VM Network,IDS - Proton>
+<IDS,IDS - Proton>
+<Seth-Round10-0 Network 1,Windows Server 2008 - Domain-DHCP  (1)>
