@@ -3,9 +3,7 @@
  * Tanis Lopez
  * Archana Shrestha
  * 
- * Contains main, as well as the methods used for the construction
- * of node objects as well as the setting and returning of values
- * within the class.
+ * Node Class
  */
 
 package com.proj.vm;
