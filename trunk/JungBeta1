@@ -76,16 +76,60 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 
+
+
+
+////////////////////////////////////////////////////////////////
+import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.event.InputEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
+import java.util.Collection;
+
+import javax.swing.JComponent;
+
+import edu.uci.ics.jung.algorithms.layout.GraphElementAccessor;
+import edu.uci.ics.jung.algorithms.layout.Layout;
+import edu.uci.ics.jung.visualization.Layer;
+import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.VisualizationServer.Paintable;
+import edu.uci.ics.jung.visualization.picking.PickedState;
+
+
+import edu.uci.ics.jung.visualization.picking.*;
+
+
+
+////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
 /**
  * Demonstrates the visualization of a Tree using TreeLayout
- * and BalloonLayout. An examiner lens performing a hyperbolic
- * transformation of the view is also included.
+ * and BalloonLayout. 
  * 
  * @author
  * 
  */
 //@SuppressWarnings("serial")
 class JungProto1 extends JApplet {
+    
+        String ID = "A0";
+        String MAC = "192.168.1.1";
+
+	/**
+	 * the picked Vertex, if any
+	 */
+    //protected String vertex;    
 
     /**
      * the graph
@@ -143,6 +187,7 @@ class JungProto1 extends JApplet {
      * provides a Hyperbolic lens for the view
      */
     LensSupport hyperbolicViewSupport;
+    private String vertex;
     
     public JungProto1() {
         
@@ -166,6 +211,7 @@ class JungProto1 extends JApplet {
         Container content = getContentPane();
         final GraphZoomScrollPane panel = new GraphZoomScrollPane(vv);
         content.add(panel);
+       
         
         final DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
 //editing - final DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse(vv.getRenderContext(), vertexFactory, edgeFactory);
@@ -253,17 +299,13 @@ class JungProto1 extends JApplet {
         tf.setRows(4);
         tf.setEditable(false);
         controls.add(tf);
-        
-        String ID = "A0";
-        String MAC = "192.168.1.1";
-                
+       
+/*      Testing stuff          
         tf.setText("Type:  Switch \n");
         tf.append("ID:  " + ID + " \n");
         tf.append("IP/MAC address:  " + MAC + " \n");
         tf.append("Enabled: True");
-        
-//        Vector textFieldVector new Vector();
-//        textFieldVector.add(tf);
+*/       
         //controls.add(hyperView);
         content.add(controls, BorderLayout.SOUTH);
     }
@@ -312,8 +354,24 @@ class JungProto1 extends JApplet {
      * 
      */
 
-    
-    
+/*    
+    public class
+    public void mouseData(MouseEvent e) extends PickingMouseGraphPlugin implements MouseListener, MouseMotionListener{
+        
+        VisualizationViewer<String,Integer> vv = (VisualizationViewer)e.getSource();
+        GraphElementAccessor<String,Integer> pickSupport = vv.getPickSupport();
+        //Collection<String> vert = pickSupport.getVertices(vv.getGraphLayout(), vv.getBounds());
+        //Collection<String> verticies = vv.ge
+        //String vertex;
+        //Layout<String,Integer> layout = vv.getGraphLayout();
+        Point2D ip = e.getPoint();         
+        
+        vertex = pickSupport.getVertex(layout, ip.getX(), ip.getY());
+        //ID = vertex;
+        System.out.println(vertex.toString());
+     
+    }
+*/    
     private void createTree() {
 /*      
  * 
@@ -331,8 +389,7 @@ class JungProto1 extends JApplet {
         }
 */
         
-        
-         graph.addVertex("server");
+        graph.addVertex("server");
 //proto of required string
 //      graph.addEdge(edgeFactory.create(), "Edge "+id, "A0", "B0")
         graph.addVertex("A0");
