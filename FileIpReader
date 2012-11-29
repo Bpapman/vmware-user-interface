@@ -64,6 +64,9 @@ public void FileIpReader()
                
             if(sCurrentLine.compareTo("<edge>") == 0)
              {
+                 
+               Edge newedge = new Edge("temp","temp");
+               
                sCurrentLine = br.readLine();
                               
                 String OrigNode;
@@ -74,10 +77,10 @@ public void FileIpReader()
                 while(sCurrentLine.compareTo("<<>>") != 0)
                 {
                     tokens = sCurrentLine.split(",");
-                    OrigNode = tokens[0];
-                    DestNode = tokens[1];
+                    newedge.setOrig(tokens[0]);
+                    newedge.setDest(tokens[1]);
                 
-                    System.out.format("%s is connected to %s%n",OrigNode,DestNode);
+                    newedge.printEdge(newedge);
                     
                     sCurrentLine = br.readLine();
                 }//end edge loop
