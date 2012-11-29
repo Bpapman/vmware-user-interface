@@ -71,11 +71,17 @@ public void FileIpReader()
                 
                 String[] tokens;
                 
-                tokens = sCurrentLine.split(",");
-                OrigNode = tokens[0];
-                DestNode = tokens[1];
+                while(sCurrentLine.compareTo("<<>>") != 0)
+                {
+                    tokens = sCurrentLine.split(",");
+                    OrigNode = tokens[0];
+                    DestNode = tokens[1];
                 
-                System.out.format("%s is connected to %s%n",OrigNode,DestNode);
+                    System.out.format("%s is connected to %s%n",OrigNode,DestNode);
+                    
+                    sCurrentLine = br.readLine();
+                }//end edge loop
+               
                 
              }//end <edge> tag
            }//end while
