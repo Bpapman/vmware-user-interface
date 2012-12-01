@@ -295,23 +295,37 @@ public class GraphCreate extends JApplet{
     
         private void createTree(Map<String, NodeData> NodeTable, Map<String, EdgeData> EdgeTable) {
         //mandatory server main vertex    
-        graph.addVertex("Proton");
+        graph.addVertex("proton");
 /*      
  * 
  *  Makes all the vertex's then all the edges. 
  */
-        String HashID = "Node";
-        String EdgeID = "Edge";
+        String HashID = "node";
+        String EdgeID = "edge";
         Integer count = 1;
         String newNode;
-        while((newNode = NodeTable.get(HashID + count).getName()) != null) {
+        
+        //testing string
+//        System.out.println(HashID + count);
+        System.out.println(NodeTable.toString());
+        System.out.println(EdgeTable.toString());
+        
+        while(NodeTable.get("node" + count) != null) {            
+            newNode = NodeTable.get(HashID + count).getName();
+            System.out.println(newNode + " has been drawn");
             count++;
             graph.addVertex(newNode);
         }
         count = 1;
-        while(EdgeTable.get(EdgeID + count).getID() > 0){
-            count++;
+
+        //more testing woulnd't draw edges
+//        graph.addEdge(edgeFactory.create(), "proton", "node1");
+//        graph.addEdge(edgeFactory.create(), "proton", "node2");
+//        graph.addEdge(edgeFactory.create(), "proton", "node3");
+        while(EdgeTable.get("edge" + count) != null){
+            System.out.println(EdgeTable.get(EdgeID + count).getParent() + " is connected to " + EdgeTable.get(EdgeID + count).getChild());
             graph.addEdge(edgeFactory.create(), EdgeTable.get(EdgeID + count).getParent(), EdgeTable.get(EdgeID + count).getChild());
+            count++;
         }
 
 
@@ -327,7 +341,7 @@ public class GraphCreate extends JApplet{
         graph.addEdge(edgeFactory.create(), "Proton", "A1");
         graph.addEdge(edgeFactory.create(), "Proton", "A2");
         graph.addEdge(edgeFactory.create(), "Proton", "A3");
-//         graph.addEdge(edgeFactory.create(), "server", "A4");
+        graph.addEdge(edgeFactory.create(), "server", "A4");
 */        
    }       
         
