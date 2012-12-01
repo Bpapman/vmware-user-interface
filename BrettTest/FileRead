@@ -1,0 +1,174 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jung1;
+
+import java.io.*;
+import java.util.*;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+
+
+/**
+ *
+ * @author Brett
+ */
+public class FileRead {
+    //Two hashmaps for nodes and edges
+    private HashMap<String, NodeData> NodeTable = new HashMap<>();
+    private HashMap<String, EdgeData> EdgeTable = new HashMap<>();
+//    private Hashtable<String, NodeData> nodeTable = new Hashtable<String, NodeData>();
+//    private Hashtable<String, edgeData> edgeTable = new Hashtable<String, edgeData>();    
+    
+  public File FileChooser(){
+        JFrame openFrame = new JFrame();
+        JFileChooser fileDialog = new JFileChooser(".");
+        int openChoice = fileDialog.showOpenDialog(openFrame);        
+        File selectedFile = null;
+        
+        
+        if (openChoice == JFileChooser.APPROVE_OPTION)
+        {
+            selectedFile = fileDialog.getSelectedFile();
+            System.out.print(selectedFile + " Read Succesfully \n\n\n");
+        }
+        else
+        {
+            //error options
+        }
+        
+        return selectedFile;
+    }     
+    
+    
+    /**
+     *
+     * @param ChosenFile
+     */
+    public void FileRead(File ChosenFile)
+  {   
+    BufferedReader br = null;
+   
+    try {
+      
+     String sCurrentLine;
+     String NodeHashID;
+     String EdgeHashID;
+     String NodeName;
+     String NodeStatus;
+     Integer NodeCount = 0;
+     Integer EdgeCount = 0;
+     String EdgeParent;
+     String EdgeChild;
+   
+           //Location of the File to be parsed
+
+//       br = new BufferedReader(ChosenFile);
+//     br = new BufferedReader(new FileReader(FileChooser()));
+   
+     while ((sCurrentLine = br.readLine()) != null) 
+           {
+                     
+               if( sCurrentLine.compareTo("<node>") == 0)
+                {
+                    
+                   /* <Node> tag Contains the following
+                    *   Name - string
+                    *   SwitchID - int
+                    *   Status - string
+                    */
+                   
+                    //Node Initialization
+//                  NodeTable.put(Name String, generated ID, Status String);
+                   
+                   //iterate nodecount
+                   NodeCount++; 
+                    
+                    
+                   //Name Read
+                   sCurrentLine = br.readLine();
+                   NodeName = sCurrentLine;
+//                 newNode.setName(newName);                           
+                   
+                   //SwitchID Read, disabled for now
+                   //sCurrentLine = br.readLine();
+                   //String newSwitchID = sCurrentLine;
+//                 newNode.setSwitchID(newSwitchID);
+                   
+                   //Status
+                   sCurrentLine = br.readLine();
+                   NodeStatus = sCurrentLine;
+//                 newNode.setStatus(newStatus);
+                   
+                   
+                   //Setups up node and outputs the fields of the read node for checking purposes
+                   NodeHashID = "Node" + String.valueOf(NodeCount);
+                   NodeTable.put(NodeHashID, new NodeData(NodeName, NodeCount, NodeStatus));                   
+                   System.out.format("End of %s \n", NodeTable.get(NodeHashID));
+                   
+//                   newNode.printNode(newNode);     
+//                   System.out.format("End of %s%n", newNode.getName());
+                   
+              } //End <node> Tag
+                         
+               
+            if(sCurrentLine.compareTo("<edge>") == 0)
+             {
+                 
+//               Edge newedge = new Edge("temp","temp");
+               
+               sCurrentLine = br.readLine();
+                              
+                //String OrigNode;
+                //String DestNode;
+                
+                String[] tokens;
+                
+                while(sCurrentLine.compareTo("<<>>") != 0)
+                {
+                    EdgeCount++;
+                    tokens = sCurrentLine.split(",");
+                    EdgeParent = tokens[0];
+                    EdgeChild = tokens[1];
+                    
+                   //Setups up node and outputs the fields of the read node for checking purposes
+                   EdgeHashID = "Edge" + String.valueOf(EdgeCount);
+                   EdgeTable.put("Edge" + String.valueOf(EdgeCount), new EdgeData(EdgeCount, EdgeParent, EdgeChild));                   
+                   System.out.format("End of %s \n", EdgeTable.get(EdgeHashID));
+//                    newedge.setOrig(tokens[0]);
+//                    newedge.setDest(tokens[1]);
+                
+//                    newedge.printEdge(newedge);
+                    
+                    sCurrentLine = br.readLine();
+                }//end edge loop
+               
+                
+             }//end <edge> tag
+           }//end while
+   
+    } catch (IOException e) {
+    } finally {
+     try {
+      if (br != null) {
+                   br.close();
+               }
+     } catch (IOException ex) {
+     }
+    }  
+  }
+
+public static void main(String[] args)
+{
+        FileRead finput = new FileRead();
+        File ChosenFile = finput.FileChooser();
+        finput.FileRead(ChosenFile);
+//    File inputFile = FileChooser();
+//        FileRead(inputFile);
+ //       finput.FileRead();
+        System.out.println("End of FileRead");
+        System.exit(1);
+}
+
+}
