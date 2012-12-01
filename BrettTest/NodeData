@@ -1,0 +1,54 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jung1;
+
+/**
+ *
+ * @author Brett
+ */
+public class NodeData {
+  private String NodeName;
+  private final int NodeID;
+  private String Status;
+
+  public NodeData(String name, int x, String status)
+  {
+        NodeName = name;
+        NodeID = x;
+        Status = status;
+  }
+
+    public int getID()
+    {
+        return NodeID;
+    }
+
+    public void setName(String name)
+    {
+        this.NodeName = name;
+    }
+
+    public String getName()
+    {
+        return (NodeName);
+    }
+
+    public void setStatus(String status)
+    {
+        Status = status;
+    }
+
+    public String getStatus()
+    {
+        return (Status);
+    }
+
+    public void NodePrint(NodeData data)
+    {
+        System.out.format("Node name: %s", data.getName());
+        System.out.format("Node ID: %n", data.getID());
+        System.out.format("Satus: %s", data.getStatus());
+    }
+}
