@@ -1,0 +1,35 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jung1;
+
+import java.awt.Container;
+import java.util.HashMap;
+import javax.swing.JApplet;
+import javax.swing.JFrame;
+
+/**
+ *
+ * @author Brett
+ */
+public class VMNetworkVisualizer extends JApplet {
+    private static HashMap<String, NodeData> NodeTable = new HashMap<>();
+    private static HashMap<String, EdgeData> EdgeTable = new HashMap<>();    
+    
+        public static void main(String[] args) {
+        FileRead finput = new FileRead();
+        finput.FileRead(NodeTable, EdgeTable);
+        System.out.println("End of FileRead");    
+            
+            
+            
+        JFrame frame = new JFrame();
+        Container content = frame.getContentPane();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        content.add(new GraphCreate(NodeTable, EdgeTable));
+        frame.pack();
+        frame.setVisible(true);
+    }
+}
