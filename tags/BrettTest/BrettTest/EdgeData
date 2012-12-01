@@ -1,0 +1,53 @@
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package jung1;
+
+/**
+ *
+ * @author Brett
+ */
+public class EdgeData
+{
+    private final int EdgeID;
+    private String Parent;
+    private String Child;
+
+    public EdgeData(int x, String parent, String child)
+    {
+        EdgeID = x;
+        Parent = parent;
+        Child = child;
+
+    }
+
+    public int getID()
+    {
+        return EdgeID;
+    }
+
+    public void setParent(String parent)
+    {
+        this.Parent = parent;
+    }
+
+    public String getParent()
+    {
+        return Parent;
+    }
+    public void setChild(String child)
+    {
+        this.Child = child;
+    }
+
+    public String getChild()
+    {
+        return Child;
+    }
+    public void PrintEdge(EdgeData edge)
+    {
+        System.out.format("%s is connected to %s%n",edge.getParent(),edge.getChild());
+    }
+}
+
