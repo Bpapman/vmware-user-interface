@@ -10,19 +10,26 @@ package jung1;
  */
 public class NodeData {
   private String NodeName;
-  private final int NodeID;
+  private String NodeID;
   private String Status;
+  private String Address;
 
-  public NodeData(String name, int x, String status)
+  public NodeData(String name, String add, String status, String id)
   {
         NodeName = name;
-        NodeID = x;
+        NodeID = id;
         Status = status;
+        Address = add;
   }
 
-    public int getID()
+    public String getID()
     {
         return NodeID;
+    }
+    
+    public void setID(String id)
+    {
+        this.NodeID = id;
     }
 
     public void setName(String name)
@@ -37,7 +44,7 @@ public class NodeData {
 
     public void setStatus(String status)
     {
-        Status = status;
+        this.Status = status;
     }
 
     public String getStatus()
@@ -45,10 +52,21 @@ public class NodeData {
         return (Status);
     }
 
-    public void NodePrint(NodeData data)
+    public void setAddress(String add)
     {
-        System.out.format("Node name: %s", data.getName());
-        System.out.format("Node ID: %n", data.getID());
-        System.out.format("Satus: %s", data.getStatus());
+        this.Address = add;
+    }
+    
+    public String getAddress()
+    {
+        return (Address);
+    }
+    
+    public void nodePrint(NodeData data)
+    {
+        System.out.println("Name: " + data.getName());
+        System.out.println("Field 1: " + data.getID());
+        System.out.println("Field 2: " + data.getStatus());
+        System.out.println("Field 3: " + data.getAddress());
     }
 }
