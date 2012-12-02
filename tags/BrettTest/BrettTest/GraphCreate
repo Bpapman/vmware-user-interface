@@ -20,16 +20,12 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.CrossoverScalingControl;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
-import edu.uci.ics.jung.visualization.control.ModalLensGraphMouse;
 import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.layout.LayoutTransition;
-import edu.uci.ics.jung.visualization.transform.LensSupport;
 import edu.uci.ics.jung.visualization.transform.MutableTransformer;
 import edu.uci.ics.jung.visualization.transform.MutableTransformerDecorator;
-import edu.uci.ics.jung.visualization.transform.shape.HyperbolicShapeTransformer;
-import edu.uci.ics.jung.visualization.transform.shape.ViewLensSupport;
 import edu.uci.ics.jung.visualization.util.Animator;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -47,14 +43,11 @@ import java.awt.event.ItemListener;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Point2D;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.Map;
-import javax.swing.BorderFactory;
-import javax.swing.JApplet;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.JTextArea;
-import javax.swing.JToggleButton;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import org.apache.commons.collections15.Factory;
 import org.apache.commons.collections15.functors.ConstantTransformer;
 
@@ -117,10 +110,12 @@ public class GraphCreate extends JApplet{
     /**
      * provides a Hyperbolic lens for the view
      */
-    LensSupport hyperbolicViewSupport;
+    //LensSupport hyperbolicViewSupport;
 //    private String vertex;
     
-    
+ //   static public Insets getScreenInsets(Window wnd){
+ //       
+ //   }
     
     public GraphCreate(Map<String, NodeData> NodeTable, Map<String, EdgeData> EdgeTable) {
         
@@ -131,10 +126,12 @@ public class GraphCreate extends JApplet{
         
         layout = new TreeLayout<>(graph);
         radialLayout = new BalloonLayout<>(graph);
-        radialLayout.setSize(new Dimension(800,800));
+        radialLayout.setSize(new Dimension(2000,2000));
+        //Testing Screen insets
+
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
  
-        vv =  new VisualizationViewer<>(layout, new Dimension(screenSize.width - 50,screenSize.height - 200));
+        vv =  new VisualizationViewer<>(layout, new Dimension(screenSize.width - 40,screenSize.height - 175));
         vv.setBackground(Color.white);
         vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
@@ -154,14 +151,15 @@ public class GraphCreate extends JApplet{
         vv.setGraphMouse(graphMouse);
         vv.addKeyListener(graphMouse.getModeKeyListener());
         
+/* hyperbolic view waste        
         hyperbolicViewSupport = 
             new ViewLensSupport<>(vv, new HyperbolicShapeTransformer(vv, 
                 vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW)), 
                     new ModalLensGraphMouse());
 
-
         graphMouse.addItemListener(hyperbolicViewSupport.getGraphMouse().getModeListener());
-
+*/
+        
         JComboBox modeBox = graphMouse.getModeComboBox();
         //annotation doesn't work well when flipping graph modes
 //        modeBox.removeItemAt(3);
@@ -189,6 +187,60 @@ public class GraphCreate extends JApplet{
             }
         });
         
+        JButton imgSave = new JButton("Save .jpg");
+        imgSave.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //img dimensions
+                int width = vv.getWidth();
+                int height = vv.getHeight();
+                
+                //File dialog
+                JFrame saveFrame = new JFrame();
+                JFileChooser fileImg = new JFileChooser(".");
+                int saveChoice = fileImg.showSaveDialog(saveFrame);
+                File selectedFile;
+                
+                //If save then get selected file name
+                if (saveChoice == JFileChooser.APPROVE_OPTION)
+                {
+                    selectedFile = fileImg.getSelectedFile();
+                }
+                else 
+                {
+                    selectedFile = null;
+                }
+               
+                //Create img
+                BufferedImage bi = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+                Graphics2D graphics = bi.createGraphics();
+                vv.paint(graphics);
+                graphics.dispose();
+                
+                //Write img at the location
+                try
+                {
+                    ImageIO.write(bi, "jpg", selectedFile);                    
+                }
+                catch(Exception ee)
+                {
+                    JFrame notification = new JFrame();
+                    JOptionPane.showMessageDialog(notification,"Error writing/creating image");
+                }
+                vv.setDoubleBuffered(true);
+            }
+        });
+        
+        JButton resetGrid = new JButton("Reset Cam");
+        resetGrid.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).setToIdentity();
+                vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).setToIdentity();
+                
+            }
+        });
+        
         JToggleButton radial = new JToggleButton("Balloon");
         radial.addItemListener(new ItemListener() {
 
@@ -213,14 +265,6 @@ public class GraphCreate extends JApplet{
         }
         vv.repaint();
       }});
-        /*
-        final JRadioButton hyperView = new JRadioButton("Hyperbolic View");
-        hyperView.addItemListener(new ItemListener(){
-            public void itemStateChanged(ItemEvent e) {
-                hyperbolicViewSupport.activate(e.getStateChange() == ItemEvent.SELECTED);
-            }
-        });
-        */
 
         JPanel scaleGrid = new JPanel(new GridLayout(1,0));
         scaleGrid.setBorder(BorderFactory.createTitledBorder("Zoom"));
@@ -231,6 +275,8 @@ public class GraphCreate extends JApplet{
         controls.add(radial);
         controls.add(scaleGrid);
         controls.add(modeBox);
+        controls.add(imgSave);
+        controls.add(resetGrid);
 
         JTextArea tf = new JTextArea(); 
         tf.setColumns(22);
@@ -244,7 +290,6 @@ public class GraphCreate extends JApplet{
         tf.append("IP/MAC address:  " + MAC + " \n");
         tf.append("Enabled: True");
        
-        //controls.add(hyperView);
         content.add(controls, BorderLayout.SOUTH);
     }
         
@@ -295,7 +340,7 @@ public class GraphCreate extends JApplet{
     
         private void createTree(Map<String, NodeData> NodeTable, Map<String, EdgeData> EdgeTable) {
         //mandatory server main vertex    
-        graph.addVertex("proton");
+//        graph.addVertex("proton");
 /*      
  * 
  *  Makes all the vertex's then all the edges. 
@@ -310,7 +355,7 @@ public class GraphCreate extends JApplet{
         System.out.println(NodeTable.toString());
         System.out.println(EdgeTable.toString());
         
-        while(NodeTable.get("node" + count) != null) {            
+        while(NodeTable.get(HashID + count) != null) {            
             newNode = NodeTable.get(HashID + count).getName();
             System.out.println(newNode + " has been drawn");
             count++;
@@ -322,7 +367,7 @@ public class GraphCreate extends JApplet{
 //        graph.addEdge(edgeFactory.create(), "proton", "node1");
 //        graph.addEdge(edgeFactory.create(), "proton", "node2");
 //        graph.addEdge(edgeFactory.create(), "proton", "node3");
-        while(EdgeTable.get("edge" + count) != null){
+        while(EdgeTable.get(EdgeID + count) != null){
             System.out.println(EdgeTable.get(EdgeID + count).getParent() + " is connected to " + EdgeTable.get(EdgeID + count).getChild());
             graph.addEdge(edgeFactory.create(), EdgeTable.get(EdgeID + count).getParent(), EdgeTable.get(EdgeID + count).getChild());
             count++;
