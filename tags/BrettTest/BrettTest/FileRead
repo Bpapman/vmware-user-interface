@@ -59,9 +59,9 @@ public void FileRead(Map<String, NodeData> NodeTable, Map<String, EdgeData> Edge
         String NodeHashID;
         String EdgeHashID;
         String NodeName;
-        String NodeStatus;
-        String NodeAddress;
-        String NodeID;
+        String NodeF1;
+        String NodeF2;
+        String NodeF3;
         Integer NodeCount = 0;
         Integer EdgeCount = 0;
    
@@ -90,26 +90,27 @@ public void FileRead(Map<String, NodeData> NodeTable, Map<String, EdgeData> Edge
                 //System.out.println(sCurrentLine);
                 NodeName = sCurrentLine.toLowerCase();                         
                    
-                //ID Read
+                //ID Read (Field 1)
                 sCurrentLine = br.readLine();
-                NodeID = sCurrentLine;
+                NodeF1 = sCurrentLine;
                    
-                //Status Read
+                //Status Read (Field 2)
                 sCurrentLine = br.readLine();
-                NodeStatus = sCurrentLine;
+                NodeF2 = sCurrentLine;
                    
-                //Address Read
+                //Address Read (Field 3)
                 sCurrentLine = br.readLine();
-                NodeAddress = sCurrentLine;
+                NodeF3 = sCurrentLine;
                    
                    
                 //Setups up node and outputs the fields of the read node for checking purposes
                 NodeHashID = "node" + String.valueOf(NodeCount);
-                NodeTable.put(NodeHashID, new NodeData(NodeName, NodeAddress, NodeStatus, NodeID)); 
-                System.out.println("Node ID: " + NodeTable.get(NodeHashID).getID());
-                System.out.println("Node Name: " + NodeTable.get(NodeHashID).getName());
-                System.out.println("Node Address: " + NodeTable.get(NodeHashID).getAddress());
-                System.out.println("Node Status: " + NodeTable.get(NodeHashID).getStatus() + "\n");
+                NodeTable.put(NodeHashID, new NodeData(NodeName, NodeF1, NodeF2, NodeF3));
+                NodeTable.get(NodeHashID).nodePrint();
+//                System.out.println("Node ID: " + NodeTable.get(NodeHashID).getID());
+//                System.out.println("Node Name: " + NodeTable.get(NodeHashID).getName());
+//                System.out.println("Node Address: " + NodeTable.get(NodeHashID).getAddress());
+//                System.out.println("Node Status: " + NodeTable.get(NodeHashID).getStatus() + "\n");
                  
             } //End <node> Tag
                          
