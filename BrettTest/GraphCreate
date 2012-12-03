@@ -7,6 +7,7 @@ package jung1;
 
 import edu.uci.ics.jung.algorithms.layout.BalloonLayout;
 import edu.uci.ics.jung.algorithms.layout.TreeLayout;
+import edu.uci.ics.jung.algorithms.layout.util.Relaxer;
 import edu.uci.ics.jung.graph.DelegateForest;
 import edu.uci.ics.jung.graph.DelegateTree;
 import edu.uci.ics.jung.graph.DirectedGraph;
@@ -24,6 +25,7 @@ import edu.uci.ics.jung.visualization.control.ScalingControl;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import edu.uci.ics.jung.visualization.layout.LayoutTransition;
+import edu.uci.ics.jung.visualization.picking.PickedState;
 import edu.uci.ics.jung.visualization.transform.MutableTransformer;
 import edu.uci.ics.jung.visualization.transform.MutableTransformerDecorator;
 import edu.uci.ics.jung.visualization.util.Animator;
@@ -117,7 +119,7 @@ public class GraphCreate extends JApplet{
  //       
  //   }
     
-    public GraphCreate(Map<String, NodeData> NodeTable, Map<String, EdgeData> EdgeTable) {
+    public GraphCreate(final Map<String, NodeData> NodeTable, Map<String, EdgeData> EdgeTable) {
         
         // create a simple graph for the demo
         graph = new DelegateForest<>();
@@ -235,9 +237,20 @@ public class GraphCreate extends JApplet{
         resetGrid.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //reset zoom               
                 vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).setToIdentity();
                 vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).setToIdentity();
                 
+                //reset Camera
+                //TreeLayout<String, Integer> Treelayout = vv.getGraphLayout();
+                layout.initialize();
+                Relaxer relaxer = vv.getModel().getRelaxer();
+                if(relaxer != null) 
+                {
+                    relaxer.stop();
+                    relaxer.prerelax();
+                    relaxer.relax();
+                } 
             }
         });
         
@@ -273,22 +286,63 @@ public class GraphCreate extends JApplet{
         scaleGrid.add(plus);
         scaleGrid.add(minus);
         controls.add(radial);
+        controls.add(resetGrid);
         controls.add(scaleGrid);
         controls.add(modeBox);
-        controls.add(imgSave);
-        controls.add(resetGrid);
-
-        JTextArea tf = new JTextArea(); 
-        tf.setColumns(22);
-        tf.setRows(4);
+                       
+        
+        final JTextArea tf = new JTextArea();
+        tf.setColumns(24);
+        tf.setRows(3);
         tf.setEditable(false);
+        
         controls.add(tf);
+        controls.add(imgSave);
+        
+
+        final PickedState<String> pickedState = vv.getPickedVertexState();
+        pickedState.addItemListener(new ItemListener() 
+        {
+            @Override
+            public void itemStateChanged(ItemEvent e) 
+            {
+                Object subject = e.getItem();
+                if (subject instanceof String) 
+                {
+                    String vertex = (String) subject;
+                    //pickedState.isPicked(vertex);
+                    if (pickedState.isPicked(vertex)) 
+                    {
+                        System.out.println("Vertex " + vertex + " is now selected");
+                        
+                        //      Testing stuff
+                        for(Integer i = 1; NodeTable.get("node" + i) != null;)
+                        {
+
+                            //string.valueof(int);
+                            if(NodeTable.get("node" + i).getName().compareTo(vertex) == 0)
+                            {
+                            System.out.println("Found Match: " + NodeTable.get("node" + i).getName() + "  compared to:  " + vertex);                                
+                            vertex = "node" + i;
+                            }
+                            i++;
+                        }
+                        tf.setText("Node name: " + NodeTable.get(vertex).getName() + "\n");
+                        tf.append(NodeTable.get(vertex).getF1() + "\n");
+                        tf.append(NodeTable.get(vertex).getF2() + "\n");
+                        tf.append(NodeTable.get(vertex).getF3() + "\n");
+                    } 
+                    else 
+                    {
+                        System.out.println("Vertex " + vertex + " no longer selected");
+                    }
+                }
+            }    
+        });
+        
+
        
-//      Testing stuff          
-        tf.setText("Type:  Switch \n");
-        tf.append("ID:  " + ID + " \n");
-        tf.append("IP/MAC address:  " + MAC + " \n");
-        tf.append("Enabled: True");
+
        
         content.add(controls, BorderLayout.SOUTH);
     }
@@ -352,8 +406,8 @@ public class GraphCreate extends JApplet{
         
         //testing string
 //        System.out.println(HashID + count);
-        System.out.println(NodeTable.toString());
-        System.out.println(EdgeTable.toString());
+//        System.out.println(NodeTable.toString());
+//        System.out.println(EdgeTable.toString());
         
         while(NodeTable.get(HashID + count) != null) {            
             newNode = NodeTable.get(HashID + count).getName();
@@ -375,17 +429,7 @@ public class GraphCreate extends JApplet{
 
 
 /*
-//      graph.addEdge(edgeFactory.create(), "Edge "+id, "A0", "B0")
         graph.addVertex("A0");
-        graph.addVertex("A1");
-        graph.addVertex("A2");
-        graph.addVertex("A3");
-
-        
-        graph.addEdge(edgeFactory.create(), "Proton", "A0");
-        graph.addEdge(edgeFactory.create(), "Proton", "A1");
-        graph.addEdge(edgeFactory.create(), "Proton", "A2");
-        graph.addEdge(edgeFactory.create(), "Proton", "A3");
         graph.addEdge(edgeFactory.create(), "server", "A4");
 */        
    }       
