@@ -10,26 +10,26 @@ package jung1;
  */
 public class NodeData {
   private String NodeName;
-  private String NodeID;
-  private String Status;
-  private String Address;
+  private String Field1;
+  private String Field2;
+  private String Field3;
 
-  public NodeData(String name, String add, String status, String id)
+  public NodeData(String name, String f1, String f2, String f3)
   {
         NodeName = name;
-        NodeID = id;
-        Status = status;
-        Address = add;
+        Field1 = f1;
+        Field2 = f2;
+        Field3 = f3;
   }
 
-    public String getID()
+    public String getF1()
     {
-        return NodeID;
+        return Field1;
     }
     
-    public void setID(String id)
+    public void setF1(String f1)
     {
-        this.NodeID = id;
+        this.Field1 = f1;
     }
 
     public void setName(String name)
@@ -42,31 +42,32 @@ public class NodeData {
         return (NodeName);
     }
 
-    public void setStatus(String status)
+    public void setF2(String f2)
     {
-        this.Status = status;
+        this.Field2 = f2;
     }
 
-    public String getStatus()
+    public String getF2()
     {
-        return (Status);
+        return (Field2);
     }
 
-    public void setAddress(String add)
+    public void setF3(String f3)
     {
-        this.Address = add;
+        this.Field3 = f3;
     }
     
-    public String getAddress()
+    public String getF3()
     {
-        return (Address);
+        return (Field3);
     }
     
-    public void nodePrint(NodeData data)
+    public void nodePrint()
     {
-        System.out.println("Name: " + data.getName());
-        System.out.println("Field 1: " + data.getID());
-        System.out.println("Field 2: " + data.getStatus());
-        System.out.println("Field 3: " + data.getAddress());
+        System.out.println("Name: " + this.getName());
+        System.out.println(this.getF1());
+        System.out.println(this.getF2());
+        System.out.println(this.getF3());
+        System.out.println();
     }
 }
