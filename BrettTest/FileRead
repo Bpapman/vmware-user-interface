@@ -16,7 +16,8 @@ import javax.swing.JOptionPane;
  * @author Brett
  */
 public class FileRead {
-    
+
+//Opens dialog and lets user select a file (No recommendations are made, may select wrong file and not be told)
 public File FileChooser(){
         //notification of file open
         JFrame notification = new JFrame();
@@ -27,12 +28,13 @@ public File FileChooser(){
         int openChoice = file.showOpenDialog(openFrame);        
         File selectedFile = null;
         
-        
+        //Approves choice and saves it
         if (openChoice == JFileChooser.APPROVE_OPTION)
         {
             selectedFile = file.getSelectedFile();
             System.out.print(selectedFile + " read Succesfully \n");
         }
+        //If failure to load exit program (no other workaround at the moment)
         else
         {
             JFrame failure = new JFrame();
@@ -40,6 +42,7 @@ public File FileChooser(){
             System.exit(1);
         }
         
+        //return file to the reader
         return selectedFile;
     }     
     
@@ -54,7 +57,7 @@ public void FileRead(Map<String, NodeData> NodeTable, Map<String, EdgeData> Edge
    
     try 
     {
-        //Varibles to use could be cut down some 
+        //Varibles necessary: line, name, f1-f3, counts. Others may be removed and hard coded 
         String sCurrentLine;
         String NodeHashID;
         String EdgeHashID;
@@ -72,15 +75,17 @@ public void FileRead(Map<String, NodeData> NodeTable, Map<String, EdgeData> Edge
         {                     
             if( sCurrentLine.compareTo("<node>") == 0)
             {                    
-                /* <Node> tag Contains the following
+                /* For now we are retrieving 3 extra information fields 
+                 * could be modified to be more specific by creating more tags such as <switch> <server> etc.
+                 * <Node> tag Contains the following
                  *   Name - string
-                 *   SwitchID - string
-                 *   Status - string
-                 *   Address - string
+                 *   Field1 - string
+                 *   Field2 - string
+                 *   Field3 - string
                  */
                    
                 //Node Initialization
-//              NodeTable.put(Name String, generated ID, Status String);
+//              //NodeTable.put(Name String, generated ID, Status String);
                    
                 //iterate nodecount
                 NodeCount++;       
@@ -90,15 +95,15 @@ public void FileRead(Map<String, NodeData> NodeTable, Map<String, EdgeData> Edge
                 //System.out.println(sCurrentLine);
                 NodeName = sCurrentLine.toLowerCase();                         
                    
-                //ID Read (Field 1)
+                //(Field 1)
                 sCurrentLine = br.readLine();
                 NodeF1 = sCurrentLine;
                    
-                //Status Read (Field 2)
+                //(Field 2)
                 sCurrentLine = br.readLine();
                 NodeF2 = sCurrentLine;
                    
-                //Address Read (Field 3)
+                //(Field 3)
                 sCurrentLine = br.readLine();
                 NodeF3 = sCurrentLine;
                    
@@ -106,27 +111,23 @@ public void FileRead(Map<String, NodeData> NodeTable, Map<String, EdgeData> Edge
                 //Setups up node and outputs the fields of the read node for checking purposes
                 NodeHashID = "node" + String.valueOf(NodeCount);
                 NodeTable.put(NodeHashID, new NodeData(NodeName, NodeF1, NodeF2, NodeF3));
-                NodeTable.get(NodeHashID).nodePrint();
-//                System.out.println("Node ID: " + NodeTable.get(NodeHashID).getID());
-//                System.out.println("Node Name: " + NodeTable.get(NodeHashID).getName());
-//                System.out.println("Node Address: " + NodeTable.get(NodeHashID).getAddress());
-//                System.out.println("Node Status: " + NodeTable.get(NodeHashID).getStatus() + "\n");
-                 
+                NodeTable.get(NodeHashID).nodePrint();             
             } //End <node> Tag
                          
-               
+            //<edge> tags and info   
             if(sCurrentLine.compareTo("<edge>") == 0)
             {               
                 sCurrentLine = br.readLine();
                                               
                 String[] tokens;
                 
+                //Splits the string at the ',' so two tokens are made (parent, child)
                 while(sCurrentLine.compareTo("<<>>") != 0)
                 {
                     EdgeCount++;
                     tokens = sCurrentLine.split(",");
                     
-                    //Setups up node and outputs the fields of the read node for checking purposes
+                    //Setups up node and outputs the fields of the read node for checking purposes (should implement the edgeprint)
                     EdgeHashID = "edge" + String.valueOf(EdgeCount);
                     EdgeTable.put(EdgeHashID, new EdgeData(EdgeCount, tokens[0].toLowerCase(), tokens[1].toLowerCase()));
                     System.out.println("Edge " + EdgeCount + " Is connected between: " + EdgeTable.get(EdgeHashID).getParent() + " and " + EdgeTable.get(EdgeHashID).getChild());
@@ -138,6 +139,8 @@ public void FileRead(Map<String, NodeData> NodeTable, Map<String, EdgeData> Edge
    
     }//end try
     
+    
+    //No idea what this does
     catch (IOException e) 
     {
     } 
