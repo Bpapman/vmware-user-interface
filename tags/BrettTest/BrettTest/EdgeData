@@ -45,9 +45,9 @@ public class EdgeData
     {
         return Child;
     }
-    public void PrintEdge(EdgeData edge)
+    public void PrintEdge()
     {
-        System.out.format("%s is connected to %s%n",edge.getParent(),edge.getChild());
+        System.out.format("%s is connected to %s%n",this.getParent(),this.getChild());
     }
 }
 
