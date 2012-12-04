@@ -58,11 +58,8 @@ import org.apache.commons.collections15.functors.ConstantTransformer;
  * @author Brett
  */
 public class GraphCreate extends JApplet{
-    //temporary testing strings
-        String ID = "A0";
-        String MAC = "192.168.1.1";
 
-        
+  //Default factories and graph settings for delegate tree layout
   Forest<String,Integer> graph;
 
   Factory<DirectedGraph<String,Integer>> graphFactory = 
@@ -98,7 +95,7 @@ public class GraphCreate extends JApplet{
     }};
 
     /**
-     * the visual component and renderer for the graph
+     * Visual component and renderer for the graph
      */
     VisualizationViewer<String,Integer> vv;
     
@@ -109,31 +106,22 @@ public class GraphCreate extends JApplet{
     TreeLayout<String,Integer> layout;
     
     BalloonLayout<String,Integer> radialLayout;
-    /**
-     * provides a Hyperbolic lens for the view
-     */
-    //LensSupport hyperbolicViewSupport;
-//    private String vertex;
     
- //   static public Insets getScreenInsets(Window wnd){
- //       
- //   }
-    
-    public GraphCreate(final Map<String, NodeData> NodeTable, Map<String, EdgeData> EdgeTable) {
+    public GraphCreate(final Map<String, NodeData> NodeTable, final Map<String, EdgeData> EdgeTable) {
         
-        // create a simple graph for the demo
+        //Creates the graph (format above)
         graph = new DelegateForest<>();
-
         createTree(NodeTable, EdgeTable);
         
+        
+        //Initializations + Dimensions
         layout = new TreeLayout<>(graph);
         radialLayout = new BalloonLayout<>(graph);
         radialLayout.setSize(new Dimension(2000,2000));
-        //Testing Screen insets
-
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
- 
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); 
         vv =  new VisualizationViewer<>(layout, new Dimension(screenSize.width - 40,screenSize.height - 175));
+        
+        //Labeler
         vv.setBackground(Color.white);
         vv.getRenderContext().setEdgeShapeTransformer(new EdgeShape.Line());
         vv.getRenderContext().setVertexLabelTransformer(new ToStringLabeller());
@@ -142,38 +130,26 @@ public class GraphCreate extends JApplet{
         vv.getRenderContext().setArrowFillPaintTransformer(new ConstantTransformer(Color.lightGray));
         rings = new GraphCreate.Rings(radialLayout);
         
+        //Adds zoomable pane
         Container content = getContentPane();
         final GraphZoomScrollPane panel = new GraphZoomScrollPane(vv);
         content.add(panel);
        
-        
+        //Mouse plugins
         final DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
-//editing - final DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse(vv.getRenderContext(), vertexFactory, edgeFactory);
-
         vv.setGraphMouse(graphMouse);
         vv.addKeyListener(graphMouse.getModeKeyListener());
         
-/* hyperbolic view waste        
-        hyperbolicViewSupport = 
-            new ViewLensSupport<>(vv, new HyperbolicShapeTransformer(vv, 
-                vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW)), 
-                    new ModalLensGraphMouse());
-
-        graphMouse.addItemListener(hyperbolicViewSupport.getGraphMouse().getModeListener());
-*/
-        
+        //Mode of mouse, defaults transforming
         JComboBox modeBox = graphMouse.getModeComboBox();
-        //annotation doesn't work well when flipping graph modes
-//        modeBox.removeItemAt(3);
-//        modeBox.removeItemAt
-        //end annotation removal
         modeBox.addItemListener(graphMouse.getModeListener());
         graphMouse.setMode(ModalGraphMouse.Mode.TRANSFORMING);
 
-        final ScalingControl scaler = new CrossoverScalingControl();
-        
+        //Adds scaling functionality
+        final ScalingControl scaler = new CrossoverScalingControl();        
         vv.scaleToLayout(scaler);
-
+        
+        //Zoom in scales by 10%
         JButton plus = new JButton("+");
         plus.addActionListener(new ActionListener() {
             @Override
@@ -181,6 +157,8 @@ public class GraphCreate extends JApplet{
                 scaler.scale(vv, 1.1f, vv.getCenter());
             }
         });
+        
+        //Zoom out scales by 10%
         JButton minus = new JButton("-");
         minus.addActionListener(new ActionListener() {
             @Override
@@ -189,7 +167,8 @@ public class GraphCreate extends JApplet{
             }
         });
         
-        JButton imgSave = new JButton("Save .jpg");
+        //View saver (Grabs the window not the total graph)
+        JButton imgSave = new JButton("Save Image");
         imgSave.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -208,6 +187,7 @@ public class GraphCreate extends JApplet{
                 {
                     selectedFile = fileImg.getSelectedFile();
                 }
+                //If null won't write a file
                 else 
                 {
                     selectedFile = null;
@@ -233,7 +213,8 @@ public class GraphCreate extends JApplet{
             }
         });
         
-        JButton resetGrid = new JButton("Reset Cam");
+        //Zoom/camera reset
+        JButton resetGrid = new JButton("Reset View");
         resetGrid.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -241,7 +222,8 @@ public class GraphCreate extends JApplet{
                 vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).setToIdentity();
                 vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.VIEW).setToIdentity();
                 
-                //reset Camera
+                //reset Camera (beta) using relaxer algorithm
+                /*
                 //TreeLayout<String, Integer> Treelayout = vv.getGraphLayout();
                 layout.initialize();
                 Relaxer relaxer = vv.getModel().getRelaxer();
@@ -251,24 +233,28 @@ public class GraphCreate extends JApplet{
                     relaxer.prerelax();
                     relaxer.relax();
                 } 
+                */
             }
         });
         
+        //Balloon toggle button
         JToggleButton radial = new JToggleButton("Balloon");
         radial.addItemListener(new ItemListener() {
-
             @Override
       public void itemStateChanged(ItemEvent e) {
-        if(e.getStateChange() == ItemEvent.SELECTED) {
-
+        if(e.getStateChange() == ItemEvent.SELECTED) 
+        {
+          //Balloon layout
           LayoutTransition<String,Integer> lt =
             new LayoutTransition<>(vv, layout, radialLayout);
           Animator animator = new Animator(lt);
           animator.start();
           vv.getRenderContext().getMultiLayerTransformer().getTransformer(Layer.LAYOUT).setToIdentity();
           vv.addPreRenderPaintable(rings);
-        } else {
-
+        } 
+        else 
+        {
+          //Tree layout
           LayoutTransition<String,Integer> lt =
             new LayoutTransition<>(vv, radialLayout, layout);
           Animator animator = new Animator(lt);
@@ -279,6 +265,7 @@ public class GraphCreate extends JApplet{
         vv.repaint();
       }});
 
+        //all the button/tools on bottom pannel
         JPanel scaleGrid = new JPanel(new GridLayout(1,0));
         scaleGrid.setBorder(BorderFactory.createTitledBorder("Zoom"));
 
@@ -290,7 +277,7 @@ public class GraphCreate extends JApplet{
         controls.add(scaleGrid);
         controls.add(modeBox);
                        
-        
+        //Currently where the data for vertex's are displayed
         final JTextArea tf = new JTextArea();
         tf.setColumns(24);
         tf.setRows(3);
@@ -299,38 +286,43 @@ public class GraphCreate extends JApplet{
         controls.add(tf);
         controls.add(imgSave);
         
-
+        //Data retrieval on click
         final PickedState<String> pickedState = vv.getPickedVertexState();
         pickedState.addItemListener(new ItemListener() 
         {
             @Override
             public void itemStateChanged(ItemEvent e) 
             {
+                //retrieves vertex on 'picked' event
                 Object subject = e.getItem();
                 if (subject instanceof String) 
                 {
                     String vertex = (String) subject;
-                    //pickedState.isPicked(vertex);
+                    String edges;
                     if (pickedState.isPicked(vertex)) 
                     {
+                        //system check for errors
                         System.out.println("Vertex " + vertex + " is now selected");
                         
-                        //      Testing stuff
+                        //iterates table to find matching name
                         for(Integer i = 1; NodeTable.get("node" + i) != null;)
                         {
-
-                            //string.valueof(int);
+                            
                             if(NodeTable.get("node" + i).getName().compareTo(vertex) == 0)
                             {
                             System.out.println("Found Match: " + NodeTable.get("node" + i).getName() + "  compared to:  " + vertex);                                
                             vertex = "node" + i;
+                            edges = "edge" + i;
                             }
                             i++;
                         }
+                        
+                        //Edits JTextField for drawn info
                         tf.setText("Node name: " + NodeTable.get(vertex).getName() + "\n");
                         tf.append(NodeTable.get(vertex).getF1() + "\n");
                         tf.append(NodeTable.get(vertex).getF2() + "\n");
                         tf.append(NodeTable.get(vertex).getF3() + "\n");
+//                        tf.append(EdgeTable.get(edges).getParent() + "\n");
                     } 
                     else 
                     {
@@ -348,12 +340,12 @@ public class GraphCreate extends JApplet{
     }
         
     
-        
+    //Baloon layout format (from sample code)    
     class Rings implements VisualizationServer.Paintable {
       
       BalloonLayout<String,Integer> layout;
       
-      public Rings(BalloonLayout<String,Integer> layout) {
+    public Rings(BalloonLayout<String,Integer> layout) {
         this.layout = layout;
       }
         @Override
@@ -385,45 +377,41 @@ public class GraphCreate extends JApplet{
         g2d.draw(shape);
       }
     }
-
+ 
+                
         @Override
     public boolean useTransform() {
       return true;
     }
     }      
-    
+ 
+        
         private void createTree(Map<String, NodeData> NodeTable, Map<String, EdgeData> EdgeTable) {
-        //mandatory server main vertex    
-//        graph.addVertex("proton");
 /*      
- * 
- *  Makes all the vertex's then all the edges. 
+ *  Tree creation
+ *  Makes all the vertex's then all the edges
+ * Draws from HashMaps
  */
-        String HashID = "node";
-        String EdgeID = "edge";
+        //count variable and retrieved nodename (not mandatory string)   
         Integer count = 1;
         String newNode;
         
-        //testing string
-//        System.out.println(HashID + count);
-//        System.out.println(NodeTable.toString());
-//        System.out.println(EdgeTable.toString());
-        
-        while(NodeTable.get(HashID + count) != null) {            
-            newNode = NodeTable.get(HashID + count).getName();
+        //stops on a null key, graphs the nodenames
+        while(NodeTable.get("node" + count) != null) {            
+            newNode = NodeTable.get("node" + count).getName();
             System.out.println(newNode + " has been drawn");
             count++;
             graph.addVertex(newNode);
         }
+        //reset count
         count = 1;
 
         //more testing woulnd't draw edges
 //        graph.addEdge(edgeFactory.create(), "proton", "node1");
-//        graph.addEdge(edgeFactory.create(), "proton", "node2");
-//        graph.addEdge(edgeFactory.create(), "proton", "node3");
-        while(EdgeTable.get(EdgeID + count) != null){
-            System.out.println(EdgeTable.get(EdgeID + count).getParent() + " is connected to " + EdgeTable.get(EdgeID + count).getChild());
-            graph.addEdge(edgeFactory.create(), EdgeTable.get(EdgeID + count).getParent(), EdgeTable.get(EdgeID + count).getChild());
+        //stops on null key, adds edges
+        while(EdgeTable.get("edge" + count) != null){
+            System.out.println(EdgeTable.get("edge" + count).getParent() + " is connected to " + EdgeTable.get("edge" + count).getChild());
+            graph.addEdge(edgeFactory.create(), EdgeTable.get("edge" + count).getParent(), EdgeTable.get("edge" + count).getChild());
             count++;
         }
 
