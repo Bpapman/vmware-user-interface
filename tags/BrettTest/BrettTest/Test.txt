@@ -1,37 +1,271 @@
 <node>
-node1
-1
-1
+proton.radicl.uidaho.edu
+Type: Server
+Status: SwitchedON
+IP: 192.168.1.1
 <node>
-node2
-1
-0
+vSwitch0
+Type: Virtual Switch
+ID: key-vim.host.VirtualSwitch-vSwitch0
+NIC: vmnic0
 <node>
-node3
-1
-1
+vSwitch1
+Type: Virtual Switch
+ID: key-vim.host.VirtualSwitch-vSwitch1
+NIC: vmnic1
 <node>
-node4
-1
-1
+vSwitch2
+Type: Virtual Switch
+ID: key-vim.host.VirtualSwitch-vSwitch2
+NIC: 
 <node>
-node5
-1
-0
+vSwitch3
+Type: Virtual Switch
+ID: key-vim.host.VirtualSwitch-vSwitch3
+NIC: 
 <node>
-node6
-1
-1
+VM Network
+Type: PortGroup
+Virtual Lan ID: 0
+Number of Ports: 
 <node>
-node7
-1
-1
+VMkernel
+Type: PortGroup
+Virtual Lan ID: 0
+Number of Ports: host
+<node>
+Management Network
+Type: PortGroup
+Virtual Lan ID: 0
+Number of Ports: host
+<node>
+IDS
+Type: PortGroup
+Virtual Lan ID: 0
+Number of Ports: 
+<node>
+Boom5148 Network 1
+Type: PortGroup
+Virtual Lan ID: 1
+Number of Ports: 
+<node>
+Seth-Prot-625-1 Network 1
+Type: PortGroup
+Virtual Lan ID: 10
+Number of Ports: 
+<node>
+Seth-400-1 Network 1
+Type: PortGroup
+Virtual Lan ID: 24
+Number of Ports: 
+<node>
+Seth-400-4N1 Network 1
+Type: PortGroup
+Virtual Lan ID: 23
+Number of Ports: 
+<node>
+Seth-Rnd9-5 Network 1
+Type: PortGroup
+Virtual Lan ID: 22
+Number of Ports: 
+<node>
+Seth-Rnd10-100 Network 1
+Type: PortGroup
+Virtual Lan ID: 21
+Number of Ports: 
+<node>
+Seth-Rnd9-100 Network 1
+Type: PortGroup
+Virtual Lan ID: 20
+Number of Ports: 
+<node>
+Seth-Round8-100 Network 1
+Type: PortGroup
+Virtual Lan ID: 18
+Number of Ports: 
+<node>
+Seth-Round10-4 Network 1
+Type: PortGroup
+Virtual Lan ID: 19
+Number of Ports: 
+<node>
+Seth-Round10-2 Network 1
+Type: PortGroup
+Virtual Lan ID: 17
+Number of Ports: 
+<node>
+Seth-Round10-0 Network 1
+Type: PortGroup
+Virtual Lan ID: 14
+Number of Ports: 
+<node>
+Seth-Round10-1 Network 1
+Type: PortGroup
+Virtual Lan ID: 13
+Number of Ports: 
+<node>
+Seth-ProtonBT Network 1
+Type: PortGroup
+Virtual Lan ID: 16
+Number of Ports: 
+<node>
+Seth-ProtonNet2 Network 1
+Type: PortGroup
+Virtual Lan ID: 15
+Number of Ports: 
+<node>
+CCDC extend 1 Network 1
+Type: PortGroup
+Virtual Lan ID: 9
+Number of Ports: 
+<node>
+bots-outside Network 1
+Type: PortGroup
+Virtual Lan ID: 8
+Number of Ports: 
+<node>
+bots-monitor Network 1
+Type: PortGroup
+Virtual Lan ID: 7
+Number of Ports: 
+<node>
+bots-inside Network 1
+Type: PortGroup
+Virtual Lan ID: 6
+Number of Ports: 
+<node>
+ (1) Network 1
+Type: PortGroup
+Virtual Lan ID: 4
+Number of Ports: 
+<node>
+RED_IDS_1 Network 1
+Type: PortGroup
+Virtual Lan ID: 3
+Number of Ports: 
+<node>
+blue pill Network 1
+Type: PortGroup
+Virtual Lan ID: 2
+Number of Ports: 
+<node>
+DHCP Network
+Type: PortGroup
+Virtual Lan ID: 4095
+Number of Ports: 
+<node>
+Templates
+Type: PortGroup
+Virtual Lan ID: 0
+Number of Ports: 
+<node>
+Internet Connection
+Type: PortGroup
+Virtual Lan ID: 1337
+Number of Ports: 
+<node>
+Unknown
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 1
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 2
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 3
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 4
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 5
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 6
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 7
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 8
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 9
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 10
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Unknown 11
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
 <edge>
-proton,node1
-proton,node2
-proton,node3
-node1,node4
-node1,node5
-node2,node6
-node2,node7
+proton.radicl.uidaho.edu,vSwitch0
+proton.radicl.uidaho.edu,vSwitch1
+proton.radicl.uidaho.edu,vSwitch2
+proton.radicl.uidaho.edu,vSwitch3
+vSwitch0,Management Network
+vSwitch0,VM Network
+vSwitch0,VMkernel
+vSwitch1,IDS
+vSwitch2, (1) Network 1
+vSwitch2,Boom5148 Network 1
+vSwitch2,CCDC extend 1 Network 1
+vSwitch2,DHCP Network
+vSwitch2,RED_IDS_1 Network 1
+vSwitch2,Seth-400-1 Network 1
+vSwitch2,Seth-400-4N1 Network 1
+vSwitch2,Seth-Prot-625-1 Network 1
+vSwitch2,Seth-ProtonBT Network 1
+vSwitch2,Seth-ProtonNet2 Network 1
+vSwitch2,Seth-Rnd10-100 Network 1
+vSwitch2,Seth-Rnd9-100 Network 1
+vSwitch2,Seth-Rnd9-5 Network 1
+vSwitch2,Seth-Round10-0 Network 1
+vSwitch2,Seth-Round10-1 Network 1
+vSwitch2,Seth-Round10-2 Network 1
+vSwitch2,Seth-Round10-4 Network 1
+vSwitch2,Seth-Round8-100 Network 1
+vSwitch2,Templates
+vSwitch2,blue pill Network 1
+vSwitch2,bots-inside Network 1
+vSwitch2,bots-monitor Network 1
+vSwitch2,bots-outside Network 1
+vSwitch3,Internet Connection
+Seth-Round10-0 Network 1,Unknown
+Seth-Round10-0 Network 1,Unknown 1
+Seth-Round10-0 Network 1,Unknown 2
+Seth-Round10-0 Network 1,Unknown 3
+Seth-Round10-0 Network 1,Unknown 4
+Seth-Round10-0 Network 1,Unknown 5
+Seth-Round10-0 Network 1,Unknown 6
+Seth-Round10-0 Network 1,Unknown 7
+Seth-Round10-0 Network 1,Unknown 8
+Seth-Round10-0 Network 1,Unknown 9
+Seth-Round10-0 Network 1,Unknown 10
+Seth-Round10-0 Network 1,Unknown 11
 <<>>
