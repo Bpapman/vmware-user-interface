@@ -1,0 +1,271 @@
+<node>
+proton.radicl.uidaho.edu
+Type: Host
+Status: PoweredOn
+DNS Adress: 192.168.1.100
+<node>
+vSwitch0
+Type: Virtual Switch
+ID: key-vim.host.VirtualSwitch-vSwitch0
+NIC: vmnic0
+<node>
+vSwitch1
+Type: Virtual Switch
+ID: key-vim.host.VirtualSwitch-vSwitch1
+NIC: vmnic1
+<node>
+vSwitch2
+Type: Virtual Switch
+ID: key-vim.host.VirtualSwitch-vSwitch2
+NIC: 
+<node>
+vSwitch3
+Type: Virtual Switch
+ID: key-vim.host.VirtualSwitch-vSwitch3
+NIC: 
+<node>
+VM Network
+Type: PortGroup
+Virtual Lan ID: 0
+Key: key-vim.host.PortGroup-VM Network
+<node>
+VMkernel
+Type: PortGroup
+Virtual Lan ID: 0
+Key: key-vim.host.PortGroup-VMkernel
+<node>
+Management Network
+Type: PortGroup
+Virtual Lan ID: 0
+Key: key-vim.host.PortGroup-Management Network
+<node>
+IDS
+Type: PortGroup
+Virtual Lan ID: 0
+Key: key-vim.host.PortGroup-IDS
+<node>
+Boom5148 Network 1
+Type: PortGroup
+Virtual Lan ID: 1
+Key: key-vim.host.PortGroup-Boom5148 Network 1
+<node>
+Seth-Prot-625-1 Network 1
+Type: PortGroup
+Virtual Lan ID: 10
+Key: key-vim.host.PortGroup-Seth-Prot-625-1 Network 1
+<node>
+Seth-400-1 Network 1
+Type: PortGroup
+Virtual Lan ID: 24
+Key: key-vim.host.PortGroup-Seth-400-1 Network 1
+<node>
+Seth-400-4N1 Network 1
+Type: PortGroup
+Virtual Lan ID: 23
+Key: key-vim.host.PortGroup-Seth-400-4N1 Network 1
+<node>
+Seth-Rnd9-5 Network 1
+Type: PortGroup
+Virtual Lan ID: 22
+Key: key-vim.host.PortGroup-Seth-Rnd9-5 Network 1
+<node>
+Seth-Rnd10-100 Network 1
+Type: PortGroup
+Virtual Lan ID: 21
+Key: key-vim.host.PortGroup-Seth-Rnd10-100 Network 1
+<node>
+Seth-Rnd9-100 Network 1
+Type: PortGroup
+Virtual Lan ID: 20
+Key: key-vim.host.PortGroup-Seth-Rnd9-100 Network 1
+<node>
+Seth-Round8-100 Network 1
+Type: PortGroup
+Virtual Lan ID: 18
+Key: key-vim.host.PortGroup-Seth-Round8-100 Network 1
+<node>
+Seth-Round10-4 Network 1
+Type: PortGroup
+Virtual Lan ID: 19
+Key: key-vim.host.PortGroup-Seth-Round10-4 Network 1
+<node>
+Seth-Round10-2 Network 1
+Type: PortGroup
+Virtual Lan ID: 17
+Key: key-vim.host.PortGroup-Seth-Round10-2 Network 1
+<node>
+Seth-Round10-0 Network 1
+Type: PortGroup
+Virtual Lan ID: 14
+Key: key-vim.host.PortGroup-Seth-Round10-0 Network 1
+<node>
+Seth-Round10-1 Network 1
+Type: PortGroup
+Virtual Lan ID: 13
+Key: key-vim.host.PortGroup-Seth-Round10-1 Network 1
+<node>
+Seth-ProtonBT Network 1
+Type: PortGroup
+Virtual Lan ID: 16
+Key: key-vim.host.PortGroup-Seth-ProtonBT Network 1
+<node>
+Seth-ProtonNet2 Network 1
+Type: PortGroup
+Virtual Lan ID: 15
+Key: key-vim.host.PortGroup-Seth-ProtonNet2 Network 1
+<node>
+CCDC extend 1 Network 1
+Type: PortGroup
+Virtual Lan ID: 9
+Key: key-vim.host.PortGroup-CCDC extend 1 Network 1
+<node>
+bots-outside Network 1
+Type: PortGroup
+Virtual Lan ID: 8
+Key: key-vim.host.PortGroup-bots-outside Network 1
+<node>
+bots-monitor Network 1
+Type: PortGroup
+Virtual Lan ID: 7
+Key: key-vim.host.PortGroup-bots-monitor Network 1
+<node>
+bots-inside Network 1
+Type: PortGroup
+Virtual Lan ID: 6
+Key: key-vim.host.PortGroup-bots-inside Network 1
+<node>
+ (1) Network 1
+Type: PortGroup
+Virtual Lan ID: 4
+Key: key-vim.host.PortGroup- (1) Network 1
+<node>
+RED_IDS_1 Network 1
+Type: PortGroup
+Virtual Lan ID: 3
+Key: key-vim.host.PortGroup-RED_IDS_1 Network 1
+<node>
+blue pill Network 1
+Type: PortGroup
+Virtual Lan ID: 2
+Key: key-vim.host.PortGroup-blue pill Network 1
+<node>
+DHCP Network
+Type: PortGroup
+Virtual Lan ID: 4095
+Key: key-vim.host.PortGroup-DHCP Network
+<node>
+Templates
+Type: PortGroup
+Virtual Lan ID: 0
+Key: key-vim.host.PortGroup-Templates
+<node>
+Internet Connection
+Type: PortGroup
+Virtual Lan ID: 1337
+Key: key-vim.host.PortGroup-Internet Connection
+<node>
+proton DHCP server
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+proton Internet Router
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Seth-XubuntuBase1  (1)
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Windows Server 2008-Exchange
+Type: Virtual Machine
+IP Adress: 169.254.100.42
+Operating System: Microsoft Windows Server 2008 (32-bit)
+<node>
+Seth-Proton4
+Type: Virtual Machine
+IP Adress: 
+Operating System: Ubuntu Linux (32-bit)
+<node>
+Seth-XubuntuBase1  (1)
+Type: Virtual Machine
+IP Adress: 192.168.1.100
+Operating System: Ubuntu Linux (32-bit)
+<node>
+Seth-PowerfulXub
+Type: Virtual Machine
+IP Adress: 192.168.1.101
+Operating System: Ubuntu Linux (32-bit)
+<node>
+Cobia Firewall+JQ-2fNAT - Proton
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Ubuntu 10.10 Desktop  (1)
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Ubuntu 10.10 Desktop  (2)
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+IDS - Proton
+Type: Virtual Machine
+IP Adress: 
+Operating System: 
+<node>
+Windows Server 2008 - Domain-DHCP  (1)
+Type: Virtual Machine
+IP Adress: 192.168.1.50
+Operating System: Microsoft Windows Server 2008 (32-bit)
+<edge>
+proton.radicl.uidaho.edu,vSwitch0
+proton.radicl.uidaho.edu,vSwitch1
+proton.radicl.uidaho.edu,vSwitch2
+proton.radicl.uidaho.edu,vSwitch3
+vSwitch0,Management Network
+vSwitch0,VM Network
+vSwitch0,VMkernel
+vSwitch1,IDS
+vSwitch2, (1) Network 1
+vSwitch2,Boom5148 Network 1
+vSwitch2,CCDC extend 1 Network 1
+vSwitch2,DHCP Network
+vSwitch2,RED_IDS_1 Network 1
+vSwitch2,Seth-400-1 Network 1
+vSwitch2,Seth-400-4N1 Network 1
+vSwitch2,Seth-Prot-625-1 Network 1
+vSwitch2,Seth-ProtonBT Network 1
+vSwitch2,Seth-ProtonNet2 Network 1
+vSwitch2,Seth-Rnd10-100 Network 1
+vSwitch2,Seth-Rnd9-100 Network 1
+vSwitch2,Seth-Rnd9-5 Network 1
+vSwitch2,Seth-Round10-0 Network 1
+vSwitch2,Seth-Round10-1 Network 1
+vSwitch2,Seth-Round10-2 Network 1
+vSwitch2,Seth-Round10-4 Network 1
+vSwitch2,Seth-Round8-100 Network 1
+vSwitch2,Templates
+vSwitch2,blue pill Network 1
+vSwitch2,bots-inside Network 1
+vSwitch2,bots-monitor Network 1
+vSwitch2,bots-outside Network 1
+vSwitch3,Internet Connection
+VM Network,proton DHCP server
+VM Network,proton Internet Router
+Seth-Round10-0 Network 1,Seth-XubuntuBase1  (1)
+Seth-Round10-0 Network 1,Seth-XubuntuBase1  (2)
+Seth-Round10-0 Network 1,Seth-PowerfulXub
+Seth-Round10-0 Network 1,Windows Server 2008 - Domain-DHCP  (1)
+RED_IDS_1 Network 1,Windows Server 2008-Exchange
+RED_IDS_1 Network 1,Seth-Proton4
+Templates,Cobia Firewall+JQ-2fNAT - Proton
+Boom5148 Network 1,Ubuntu 10.10 Desktop  (1)
+Boom5148 Network 1,Ubuntu 10.10 Desktop  (2)
+IDS,IDS - Proton
+<<>>
